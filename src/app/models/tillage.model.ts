@@ -1,6 +1,6 @@
 import { BaseModel } from './base.model';
 
-export interface Tillage extends BaseModel {
+export interface TillageModel extends BaseModel {
   location: Point;
   type: string;
   harvest_date: string;
