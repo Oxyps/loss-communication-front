@@ -1,20 +1,30 @@
 import { HttpClient } from '@angular/common/http';
+import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BaseModel } from '../models/base.model';
 
-export interface Response<T> {
-  data: T[];
-}
+// export interface Response<T> {
+//   data: T[];
 
+//   current_page: number;
+//   previous_page: number;
+//   next_page: number;
+
+//   total: number;
+// }
+
+@Injectable({
+  providedIn: 'root'
+})
 export class BaseService<T extends BaseModel> {
   constructor(
     protected http: HttpClient,
-    protected url: string,
+    @Inject('url') protected url: string
   ) {}
 
-  findAll(): Observable<Response<T>> {
-    return this.http.get<Response<T>>(this.url);
+  findAll(): Observable<T[]> {
+    return this.http.get<T[]>(this.url);
   }
 
   findById(id: string | number): Observable<T> {
