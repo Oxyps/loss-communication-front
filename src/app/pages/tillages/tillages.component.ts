@@ -60,7 +60,10 @@ export class TillagesComponent implements OnInit {
         );
       })
       .catch(error => {
-        console.log(error);
+        this.pushSnackBar(
+          false,
+          'Lavoura não pode ser deletada. Delete os registros que referenciam ela!'
+        );
       })
     ;
   }
