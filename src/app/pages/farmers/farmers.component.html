@@ -1,11 +1,7 @@
 <div id="header">
-  <h2>
-    Agricultores
-  </h2>
+  <h2>Agricultores</h2>
 
-  <button
-    routerLink="./cadastro"
-  >
+  <button routerLink="./cadastrar">
     Cadastrar
   </button>
 </div>
@@ -28,15 +24,11 @@
     <td>{{farmer.name}}</td>
 
     <td>
-      <button
-        [routerLink]="farmer.id"
-      >
+      <button [routerLink]="farmer.id">
         Ver/Editar
       </button>
 
-      <button
-
-      >
+      <button (click)="handleDelete(farmer.id)">
         Deletar
       </button>
     </td>

@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
 import { TillageModel } from 'src/app/models/tillage.model';
 import { TillagesService } from 'src/app/services/tillages.service';
 
@@ -13,7 +12,6 @@ export class TillagesComponent implements OnInit {
   constructor(
     private tillageService: TillagesService,
     private _snackBar: MatSnackBar,
-    private router: Router,
   ) {}
 
   tillages: TillageModel[] = [];
@@ -28,7 +26,7 @@ export class TillagesComponent implements OnInit {
         this.tillages = response;
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       })
     ;
   }
@@ -62,7 +60,7 @@ export class TillagesComponent implements OnInit {
       .catch(error => {
         this.pushSnackBar(
           false,
-          'Lavoura não pode ser deletada. Delete os registros que referenciam ela!'
+          'Lavoura não pode ser deletada. Remova primeiro os registros que referenciam ela!'
         );
       })
     ;

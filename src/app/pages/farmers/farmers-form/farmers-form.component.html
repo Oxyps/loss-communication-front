@@ -1,0 +1,70 @@
+<form
+  [formGroup]="farmerForm"
+  novalidate
+  autocomplete="off"
+  (keyup.enter)="handleSubmit()"
+>
+  <mat-form-field
+    [appearance]="formAppearance"
+    id="cpfField"
+  >
+    <mat-label>CPF</mat-label>
+
+    <input
+      matInput
+      formControlName="cpf"
+      [showMaskTyped]="true"
+      mask="000.000.000-00"
+    >
+
+    <mat-error
+      *ngIf="farmerForm.get('cpf')!.hasError('required')"
+    >
+      <strong>CPF</strong> é obrigatório
+    </mat-error>
+    <mat-error
+      *ngIf="farmerForm.get('cpf')!.hasError('cpfvalidator')"
+    >
+      <strong>CPF</strong> inválido
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    [appearance]="formAppearance"
+    id="emailField"
+  >
+    <mat-label>E-mail</mat-label>
+
+    <input matInput formControlName="email" >
+
+    <mat-error
+      *ngIf="farmerForm.get('email')!.hasError('required')"
+    >
+      <strong>E-mail</strong> é obrigatório
+    </mat-error>
+    <mat-error
+      *ngIf="farmerForm.get('email')!.hasError('email')"
+    >
+      <strong>E-mail</strong> inválido
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    [appearance]="formAppearance"
+    id="nameField"
+  >
+    <mat-label>Nome</mat-label>
+
+    <input matInput formControlName="name" >
+
+    <mat-error
+      *ngIf="farmerForm.get('name')!.hasError('required')"
+    >
+      <strong>Nome</strong> é obrigatório
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<button (click)="handleSubmit()">
+  {{isEditMode ? 'Editar' : 'Cadastrar'}}
+</button>

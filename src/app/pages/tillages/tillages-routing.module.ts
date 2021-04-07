@@ -2,12 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { TillagesComponent } from './tillages.component';
-import { TillageFormComponent } from './tillage-form/tillage-form.component';
+import { TillagesFormComponent } from './tillages-form/tillages-form.component';
 
 const routes: Routes = [
   { path: '', component: TillagesComponent },
-  { path: 'cadastrar', component: TillageFormComponent },
-  { path: ':id', component: TillageFormComponent },
+  { path: 'cadastrar', component: TillagesFormComponent },
+  { path: ':id', component: TillagesFormComponent },
 ];
 
 @NgModule({

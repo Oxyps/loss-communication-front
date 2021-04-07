@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { DateAdapter, MAT_DATE_FORMATS } from '@angular/material/core';
+import { DateAdapter } from '@angular/material/core';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
@@ -11,14 +11,14 @@ import { TillageModel } from 'src/app/models/tillage.model';
 import { PtBrDatepicker } from 'src/app/components/adapters/ptbr-datepicker';
 
 @Component({
-  selector: 'app-tillage-form',
-  templateUrl: './tillage-form.component.html',
-  styleUrls: ['./tillage-form.component.scss'],
+  selector: 'app-tillages-form',
+  templateUrl: './tillages-form.component.html',
+  styleUrls: ['./tillages-form.component.scss'],
   providers: [
     { provide: DateAdapter, useClass: PtBrDatepicker },
   ],
 })
-export class TillageFormComponent implements OnInit {
+export class TillagesFormComponent implements OnInit {
   tillageForm!: FormGroup;
   formAppearance: MatFormFieldAppearance = 'outline';
 
@@ -71,7 +71,7 @@ export class TillageFormComponent implements OnInit {
         });
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       })
     ;
   }
@@ -86,7 +86,7 @@ export class TillageFormComponent implements OnInit {
         this.tillageForm.get('longitude')!.disable();
       })
       .catch(error => {
-        console.log(error);
+        // console.log(error);
       })
     ;
   }
@@ -132,9 +132,7 @@ export class TillageFormComponent implements OnInit {
           this.router.navigate(['/lavouras']);
         })
         .catch(error => {
-          this.pushSnackBar(false, 'Ocorreu um erro. Não foi possível cadastrar.');
-
-          console.log(error);
+          this.pushSnackBar(false, 'Algo inesperado aconteceu. Não foi possível cadastrar.');
         })
       ;
     }
