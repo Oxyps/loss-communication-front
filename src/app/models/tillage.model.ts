@@ -1,14 +1,12 @@
 import { BaseModel } from './base.model';
 
 export interface TillageModel extends BaseModel {
-  location: Point;
+  location?: string;
+
+  longitude?: string | number;
+  latitude?: string | number;
+
   type: string;
   harvest_date: string;
 }
 
-export interface Point {
-  srid: string;
-  x: string;
-  y: string;
-  z: string;
-}

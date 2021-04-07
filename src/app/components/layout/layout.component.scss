@@ -1,0 +1,16 @@
+#top-bar {
+  width: 100%;
+  margin: 10px;
+  display: flex;
+  align-items: center;
+
+  button {
+    margin: 10px;
+  }
+}
+
+#page-container {
+  max-width: 100%;
+  margin: 10px;
+  display: flex;
+}

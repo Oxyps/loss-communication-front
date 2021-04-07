@@ -24,7 +24,7 @@ export class BaseService<T extends BaseModel> {
   ) {}
 
   findAll(): Observable<T[]> {
-    return this.http.get<T[]>(this.url);
+    return this.http.get<T[]>(`${this.url}/`);
   }
 
   findById(id: string | number): Observable<T> {
@@ -39,7 +39,7 @@ export class BaseService<T extends BaseModel> {
     if (model.id) {
       return this.http.put<T>(`${this.url}/${model.id}/`, model);
     } else {
-      return this.http.post<T>(this.url, model);
+      return this.http.post<T>(`${this.url}/`, model);
     }
   }
 }

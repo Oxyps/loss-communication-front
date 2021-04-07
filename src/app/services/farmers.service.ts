@@ -2,15 +2,15 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-import { TillageModel } from '../models/tillage.model';
+import { FarmerModel } from '../models/farmer.model';
 import { BaseService } from './base.service';
 
-const url = `${environment.api_url}/loss/tillages/`;
+const url = `${environment.api_url}/loss/farmers/`;
 
 @Injectable({
   providedIn: 'root'
 })
-export class TillageService extends BaseService<TillageModel> {
+export class FarmersService extends BaseService<FarmerModel> {
   constructor(protected http: HttpClient) {
     super(http, url);
   }

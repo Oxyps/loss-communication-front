@@ -1,0 +1,48 @@
+<div id="header">
+  <h2>
+    Agricultores
+  </h2>
+
+  <button
+    routerLink="./cadastro"
+  >
+    Cadastrar
+  </button>
+</div>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>CPF</th>
+    <th>Nome</th>
+    <th>Tipo</th>
+    <th>Data colheita</th>
+    <th>Causa</th>
+    <th>Ações</th>
+  </tr>
+
+  <tr
+    *ngFor="let communication of communications"
+  >
+    <td>{{communication.id}}</td>
+    <td>{{communication.farmer.cpf}}</td>
+    <td>{{communication.farmer.name}}</td>
+    <td>{{communication.tillage.type}}</td>
+    <td>{{communication.tillage.harvest_date}}</td>
+    <td>{{getLossCause(communication)}}</td>
+
+    <td>
+      <button
+        [routerLink]="communication.id"
+      >
+        Ver/Editar
+      </button>
+
+      <button
+
+      >
+        Deletar
+      </button>
+    </td>
+  </tr>
+</table>

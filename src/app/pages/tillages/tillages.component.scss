@@ -1,0 +1,39 @@
+#header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  margin: 10px 0;
+}
+
+table {
+  width: 100%;
+
+  tr th {
+    padding: 10px;
+    text-align: center;
+  }
+  tr td {
+    padding: 5px;
+    text-align: center;
+  }
+
+  tr td:last-child button {
+    margin: 0 5px;
+  }
+}
+
+::ng-deep .success-snackbar {
+  background-color: limegreen;
+  color: white;
+}
+
+::ng-deep .error-snackbar {
+  background-color: firebrick;
+  color: white;
+}
+
+::ng-deep .warning-snackbar {
+  background-color: #fff3cd;
+  color: #856404;
+}

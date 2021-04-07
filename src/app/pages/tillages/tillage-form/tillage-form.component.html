@@ -1,0 +1,71 @@
+<form
+  [formGroup]="tillageForm"
+  novalidate
+  autocomplete="off"
+  (keyup.enter)="handleSubmit()"
+>
+  <div id="locationField">
+    <mat-form-field
+      [appearance]="formAppearance"
+      id="latitudeField"
+    >
+      <mat-label>Latitude</mat-label>
+
+      <input matInput formControlName="latitude">
+    </mat-form-field>
+
+    <mat-form-field
+      [appearance]="formAppearance"
+      id="longitudeField"
+    >
+      <mat-label>Longitude</mat-label>
+
+      <input matInput formControlName="longitude">
+    </mat-form-field>
+  </div>
+
+  <mat-form-field
+    [appearance]="formAppearance"
+    id="typeField"
+  >
+    <mat-label>Tipo</mat-label>
+
+    <input matInput formControlName="type">
+
+    <mat-error *ngIf="tillageForm.get('type')!.hasError('required')">
+      <strong>Tipo da colheita</strong> é obrigatório
+    </mat-error>
+  </mat-form-field>
+
+  <mat-form-field
+    [appearance]="formAppearance"
+    id="harvestDateField"
+  >
+    <mat-label>Data da colheita</mat-label>
+
+    <input
+      matInput
+      [matDatepicker]="datePicker"
+      formControlName="harvestDate"
+    >
+
+    <mat-datepicker-toggle
+      matSuffix
+      [for]="datePicker"
+    ></mat-datepicker-toggle>
+
+    <mat-datepicker
+      #datePicker
+    ></mat-datepicker>
+
+    <mat-error
+      *ngIf="tillageForm.get('harvestDate')!.hasError('required')"
+    >
+      <strong>Data de colheita</strong> é obrigatório
+    </mat-error>
+  </mat-form-field>
+</form>
+
+<button (click)="handleSubmit()">
+  {{isEditMode ? 'Editar' : 'Cadastrar'}}
+</button>

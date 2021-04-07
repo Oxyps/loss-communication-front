@@ -1,0 +1,36 @@
+<div id="header">
+  <h2>Lavouras</h2>
+
+  <button routerLink="./cadastrar">
+    Cadastrar
+  </button>
+</div>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Longitude</th>
+    <th>Latitude</th>
+    <th>Tipo</th>
+    <th>Data colheita</th>
+    <th>Ações</th>
+  </tr>
+
+  <tr *ngFor="let tillage of tillages">
+    <td>{{tillage.id}}</td>
+    <td>{{tillage.longitude}}</td>
+    <td>{{tillage.latitude}}</td>
+    <td>{{tillage.type}}</td>
+    <td>{{tillage.harvest_date}}</td>
+
+    <td>
+      <button [routerLink]="tillage.id">
+        Ver/Editar
+      </button>
+
+      <button (click)="handleDelete(tillage.id)">
+        Deletar
+      </button>
+    </td>
+  </tr>
+</table>

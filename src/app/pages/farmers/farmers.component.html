@@ -1,0 +1,44 @@
+<div id="header">
+  <h2>
+    Agricultores
+  </h2>
+
+  <button
+    routerLink="./cadastro"
+  >
+    Cadastrar
+  </button>
+</div>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>CPF</th>
+    <th>E-mail</th>
+    <th>Nome</th>
+    <th>Ações</th>
+  </tr>
+
+  <tr
+    *ngFor="let farmer of farmers"
+  >
+    <td>{{farmer.id}}</td>
+    <td>{{farmer.cpf}}</td>
+    <td>{{farmer.email}}</td>
+    <td>{{farmer.name}}</td>
+
+    <td>
+      <button
+        [routerLink]="farmer.id"
+      >
+        Ver/Editar
+      </button>
+
+      <button
+
+      >
+        Deletar
+      </button>
+    </td>
+  </tr>
+</table>

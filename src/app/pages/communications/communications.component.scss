@@ -1,0 +1,22 @@
+#header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+table {
+  width: 100%;
+
+  tr th {
+    padding: 10px;
+    text-align: center;
+  }
+  tr td {
+    padding: 5px;
+    text-align: center;
+  }
+
+  tr td:last-child button {
+    margin: 0 5px;
+  }
+}
