@@ -38,8 +38,8 @@ export class TillageFormComponent implements OnInit {
 
   createTillageForm(): void {
     this.tillageForm = this._formBuilder.group({
-      latitude: '',
-      longitude: '',
+      latitude: ['', [Validators.required]],
+      longitude: ['', [Validators.required]],
       type: ['', [Validators.required]],
       harvestDate: [null, [Validators.required]],
     });
