@@ -1,9 +1,7 @@
 import { NgModule } from '@angular/core';
 
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
-import { MatIconModule } from '@angular/material/icon';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
-import { MatButtonModule } from '@angular/material/button';
 
 import { AsyncSelectComponent } from './async-select.component';
 import { SharedModules } from '../shared/shared-modules.module';
@@ -14,9 +12,7 @@ import { SharedModules } from '../shared/shared-modules.module';
   ],
   imports: [
     MatProgressSpinnerModule,
-    MatIconModule,
     MatAutocompleteModule,
-    MatButtonModule,
 
     SharedModules,
   ],
@@ -24,9 +20,7 @@ import { SharedModules } from '../shared/shared-modules.module';
     AsyncSelectComponent,
 
     MatProgressSpinnerModule,
-    MatIconModule,
     MatAutocompleteModule,
-    MatButtonModule,
   ],
   providers: [
   ],

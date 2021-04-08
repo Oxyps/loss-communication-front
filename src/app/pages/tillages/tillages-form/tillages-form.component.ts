@@ -51,8 +51,6 @@ export class TillagesFormComponent implements OnInit {
         this.isEditMode = true;
         this.tillageId = params.id;
         this.loadTillage(params.id);
-      } else {
-        this.loadDeviceLocation();
       }
     });
   }
@@ -76,19 +74,24 @@ export class TillagesFormComponent implements OnInit {
     ;
   }
 
-  async loadDeviceLocation(): Promise<void> {
-    await this.locationService.findDevicePosition()
-      .then(response => {
-        this.tillageForm.get('latitude')!.setValue(response.lat);
-        this.tillageForm.get('longitude')!.setValue(response.lng);
+  async toggleLoadDeviceLocation(): Promise<void> {
+    if (this.tillageForm.get('latitude')!.disabled) {
+      this.tillageForm.get('longitude')!.enable();
+      this.tillageForm.get('latitude')!.enable();
+    } else {
+      await this.locationService.findDevicePosition()
+        .then(response => {
+          this.tillageForm.get('longitude')!.setValue(response.lng);
+          this.tillageForm.get('latitude')!.setValue(response.lat);
 
-        this.tillageForm.get('latitude')!.disable();
-        this.tillageForm.get('longitude')!.disable();
-      })
-      .catch(error => {
-        // console.log(error);
-      })
-    ;
+          this.tillageForm.get('longitude')!.disable();
+          this.tillageForm.get('latitude')!.disable();
+        })
+        .catch(error => {
+          // console.log(error);
+        })
+      ;
+    }
   }
 
   getLocationPoint(longitude: number | string, latitude: number | string): string {

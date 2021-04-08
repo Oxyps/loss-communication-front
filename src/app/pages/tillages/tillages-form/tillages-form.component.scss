@@ -1,20 +1,30 @@
 form {
+  width: 100%;
   margin: 10px 0;
   display: flex;
   flex-direction: column;
 }
 
-#longitudeField,
-#latitudeField,
-#typeField,
-#harvestDateField {
-  width: 100%;
-  margin: 0 30px;
+#location-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  #toggle-wrapper {
+    margin: .25em 0;
+    padding-bottom: 1.34375em;
+  }
+
 }
 
-#locationField,
-#typeField,
-#harvestDateField {
+#type-field,
+#harvest-date-field {
+  width: 100%;
+}
+
+#location-row,
+#type-field,
+#harvest-date-field {
   margin-bottom: 10px;
 }
 

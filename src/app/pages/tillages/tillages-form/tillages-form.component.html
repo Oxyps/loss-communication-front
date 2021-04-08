@@ -4,14 +4,20 @@
   autocomplete="off"
   (keyup.enter)="handleSubmit()"
 >
-  <div id="locationField">
+  <div id="location-row">
     <mat-form-field
       [appearance]="formAppearance"
-      id="longitudeField"
+      id="longitude-field"
     >
       <mat-label>Longitude</mat-label>
 
-      <input matInput formControlName="longitude">
+      <input
+        matInput
+        formControlName="longitude"
+        [allowNegativeNumbers]="true"
+        mask="separator,0*"
+        thousandSeparator=""
+      >
 
       <mat-error
         *ngIf="tillageForm.get('longitude')!.hasError('required')"
@@ -22,11 +28,17 @@
 
     <mat-form-field
       [appearance]="formAppearance"
-      id="latitudeField"
+      id="latitude-field"
     >
       <mat-label>Latitude</mat-label>
 
-      <input matInput formControlName="latitude">
+      <input
+        matInput
+        formControlName="latitude"
+        [allowNegativeNumbers]="true"
+        mask="separator,0*"
+        thousandSeparator=""
+      >
 
       <mat-error
         *ngIf="tillageForm.get('latitude')!.hasError('required')"
@@ -34,11 +46,20 @@
         <strong>Latitude</strong> é obrigatório
       </mat-error>
     </mat-form-field>
+
+    <div id="toggle-wrapper">
+      <mat-button-toggle
+        color="primary"
+        (click)="toggleLoadDeviceLocation()"
+      >
+        <mat-icon>search</mat-icon>
+      </mat-button-toggle>
+    </div>
   </div>
 
   <mat-form-field
     [appearance]="formAppearance"
-    id="typeField"
+    id="type-field"
   >
     <mat-label>Tipo</mat-label>
 
@@ -53,7 +74,7 @@
 
   <mat-form-field
     [appearance]="formAppearance"
-    id="harvestDateField"
+    id="harvest-date-field"
   >
     <mat-label>Data da colheita</mat-label>
 
