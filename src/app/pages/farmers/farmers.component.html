@@ -24,11 +24,11 @@
     <td>{{farmer.name}}</td>
 
     <td>
-      <button [routerLink]="farmer.id">
+      <button [routerLink]="farmer.id!">
         Ver/Editar
       </button>
 
-      <button (click)="handleDelete(farmer.id)">
+      <button (click)="handleDelete(farmer.id!)">
         Deletar
       </button>
     </td>

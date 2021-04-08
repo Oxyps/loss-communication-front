@@ -5,7 +5,7 @@ import { environment } from '../../environments/environment';
 import { CommunicationModel } from '../models/communication.model';
 import { BaseService } from './base.service';
 
-const url = `${environment.api_url}/loss/communications/`;
+const url = `${environment.api_url}/loss/communications`;
 
 @Injectable({
   providedIn: 'root'

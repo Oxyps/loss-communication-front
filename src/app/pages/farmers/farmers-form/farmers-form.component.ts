@@ -2,11 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatFormFieldAppearance } from '@angular/material/form-field';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ValidateBrService } from 'angular-validate-br';
 
 import { FarmersService } from 'src/app/services/farmers.service';
-import { LocationService } from 'src/app/services/location.service';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FarmerModel } from 'src/app/models/farmer.model';
 
 @Component({

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { CommunicationModel, LOSS_CAUSES } from 'src/app/models/communication.model';
 import { CommunicationsService } from 'src/app/services/communications.service';
 
@@ -12,6 +13,7 @@ export class CommunicationsComponent {
 
   constructor(
     private communicationsService: CommunicationsService,
+    private _snackBar: MatSnackBar,
   ) {}
 
   ngOnInit(): void {
@@ -22,7 +24,6 @@ export class CommunicationsComponent {
     this.communicationsService.findAll().toPromise()
       .then(response => {
         this.communications = response;
-        console.log(response);
       })
       .catch(error => {
         console.log(error);
@@ -32,5 +33,40 @@ export class CommunicationsComponent {
 
   getLossCause(communication: CommunicationModel): string {
     return LOSS_CAUSES[communication.loss_cause] || 'Não identificado';
+  }
+
+  pushSnackBar(success: boolean, message: string): void {
+    this._snackBar.open(
+      message,
+      'x', {
+        duration: 5000,
+        panelClass: [
+          success ? 'success-snackbar' : 'error-snackbar'
+        ],
+        verticalPosition: 'top',
+        horizontalPosition: 'right'
+      }
+    );
+  }
+
+  async handleDelete(id: string | number) {
+    await this.communicationsService.delete(id).toPromise()
+      .then(() => {
+        this.pushSnackBar(
+          true,
+          'Comunicação de perda deletada com sucesso!'
+        );
+
+        this.communications = this.communications.filter(
+          farmer => farmer.id != id
+        );
+      })
+      .catch(error => {
+        this.pushSnackBar(
+          false,
+          'Comunicação de perda não pode ser deletada. Remova primeiro os registros que referenciam ela!'
+        );
+      })
+    ;
   }
 }

@@ -1,11 +1,7 @@
 <div id="header">
-  <h2>
-    Agricultores
-  </h2>
+  <h2>Agricultores</h2>
 
-  <button
-    routerLink="./cadastro"
-  >
+  <button routerLink="./cadastrar">
     Cadastrar
   </button>
 </div>
@@ -21,9 +17,7 @@
     <th>Ações</th>
   </tr>
 
-  <tr
-    *ngFor="let communication of communications"
-  >
+  <tr *ngFor="let communication of communications">
     <td>{{communication.id}}</td>
     <td>{{communication.farmer.cpf}}</td>
     <td>{{communication.farmer.name}}</td>
@@ -32,15 +26,11 @@
     <td>{{getLossCause(communication)}}</td>
 
     <td>
-      <button
-        [routerLink]="communication.id"
-      >
+      <button [routerLink]="communication.id!">
         Ver/Editar
       </button>
 
-      <button
-
-      >
+      <button (click)="handleDelete(communication.id!)">
         Deletar
       </button>
     </td>

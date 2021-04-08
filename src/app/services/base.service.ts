@@ -1,18 +1,9 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BaseModel } from '../models/base.model';
-
-// export interface Response<T> {
-//   data: T[];
-
-//   current_page: number;
-//   previous_page: number;
-//   next_page: number;
-
-//   total: number;
-// }
+import { RequestQueryType } from './interfaces/resquest-query-type';
 
 @Injectable({
   providedIn: 'root'
@@ -23,8 +14,17 @@ export class BaseService<T extends BaseModel> {
     @Inject('url') protected url: string
   ) {}
 
-  findAll(): Observable<T[]> {
-    return this.http.get<T[]>(`${this.url}/`);
+  findAll(query?: RequestQueryType<T>): Observable<T[]> {
+    let params = new HttpParams();
+
+    if (query?.search) {
+      params = params.append('search', query.search);
+    }
+
+    return this.http.get<T[]>(
+      `${this.url}/`,
+      { params }
+    );
   }
 
   findById(id: string | number): Observable<T> {

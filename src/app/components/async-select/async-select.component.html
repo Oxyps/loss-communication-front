@@ -1,0 +1,65 @@
+<mat-form-field
+  [formGroup]="form"
+  [id]="controlName + 'Field'"
+  [appearance]="appearance"
+>
+  <mat-label>{{label}}</mat-label>
+
+  <input
+    matInput
+    [formControlName]="controlName"
+    [matAutocomplete]="autocompleteField"
+    autocomplete="off"
+    (focus)="
+      (customFieldFocus.observers.length > 0 ?
+        customFieldFocus.emit() :
+        fieldFocus()
+      )
+    "
+    (blur)="
+      (customFieldBlur.observers.length > 0 ?
+        customFieldBlur.emit() :
+        fieldBlur()
+      )
+    "
+  >
+
+  <mat-icon
+    matSuffix
+    *ngIf="!optionsLoading && !form.get(controlName)!.value"
+  >
+    keyboard_arrow_down
+  </mat-icon>
+
+  <button
+    matSuffix
+    mat-icon-button
+    aria-label="Clear"
+    *ngIf="!optionsLoading && form.get(controlName)!.value"
+    (click)="form.get(controlName)!.setValue('')"
+  >
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-spinner
+    matSuffix
+    diameter="20"
+    *ngIf="optionsLoading"
+  ></mat-spinner>
+
+  <mat-autocomplete
+    #autocompleteField="matAutocomplete"
+    [displayWith]="displayFunction"
+  >
+    <mat-option
+      *ngFor="let option of filteredOptions | async"
+      [value]="option"
+    >
+      {{displayFunction(option)}}
+    </mat-option>
+  </mat-autocomplete>
+
+  <mat-error *ngIf="form.get(controlName)!.hasError('required')">
+    <strong>{{label}}</strong> é obrigatório
+  </mat-error>
+</mat-form-field>

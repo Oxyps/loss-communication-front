@@ -1,12 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CommunicationsFormComponent } from './communications-form/communications-form.component';
 
 import { CommunicationsComponent } from './communications.component';
 
 const routes: Routes = [
   { path: '', component: CommunicationsComponent },
-  // { path: 'cadastrar', component: CommunicationsFormComponent },
-  // { path: ':id', component: CommunicationsFormComponent },
+  { path: 'cadastrar', component: CommunicationsFormComponent },
+  { path: ':id', component: CommunicationsFormComponent },
 ];
 
 @NgModule({
