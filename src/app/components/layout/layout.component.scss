@@ -1,16 +1,44 @@
-#top-bar {
-  width: 100%;
-  margin: 10px;
-  display: flex;
-  align-items: center;
+mat-drawer-container {
+  height: 100%;
 
-  button {
-    margin: 10px;
+  mat-drawer {
+    width: 250px;
+    border: 0;
+
+    ::ng-deep .mat-drawer-inner-container {
+      overflow: hidden;
+    }
+
+    mat-toolbar {
+      display: flex;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    mat-nav-list {
+      padding-top: 0;
+      height: 90vh;
+      overflow-y: scroll;
+    }
+  }
+
+  mat-drawer-content {
+    background-color: #f5f5f5;
+
+    mat-toolbar {
+      display: flex;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
   }
 }
 
 #page-container {
-  max-width: 100%;
+  width: 100%;
   margin: 10px;
   display: flex;
 }

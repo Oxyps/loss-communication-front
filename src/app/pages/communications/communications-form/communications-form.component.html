@@ -1,34 +1,41 @@
-<form
-  [formGroup]="communicationForm"
-  novalidate
-  autocomplete="off"
-  (keyup.enter)="handleSubmit()"
->
-  <app-async-select
-    [form]="communicationForm"
-    controlName="farmer"
-    label="Agricultor"
-    [service]="farmersService"
-    [displayFunction]="displayFunctionFarmer"
-  ></app-async-select>
+<app-default-form
+  [title]="title"
+  linkToBack="/comunicacoes-perda"
+  [formTemplate]="formContainer"
+  [isEditMode]="isEditMode"
+  [loading]="dataLoading"
+  (handleSubmit)="handleSubmit()"
+></app-default-form>
 
-  <app-async-select
-    [form]="communicationForm"
-    controlName="tillage"
-    label="Lavoura"
-    [service]="tillagesService"
-    [displayFunction]="displayFunctionTillage"
-  ></app-async-select>
+<ng-template #formContainer>
+  <form
+    [formGroup]="communicationForm"
+    novalidate
+    autocomplete="off"
+    (keyup.enter)="handleSubmit()"
+  >
+    <app-async-select
+      [form]="communicationForm"
+      controlName="farmer"
+      label="Agricultor"
+      [service]="farmersService"
+      [displayFunction]="displayFunctionFarmer"
+    ></app-async-select>
 
-  <app-async-select
-    [form]="communicationForm"
-    controlName="lossCause"
-    label="Causa da perda"
-    [options]="LOSS_CAUSES"
-    [displayFunction]="displayFunctionLossCause"
-  ></app-async-select>
-</form>
+    <app-async-select
+      [form]="communicationForm"
+      controlName="tillage"
+      label="Lavoura"
+      [service]="tillagesService"
+      [displayFunction]="displayFunctionTillage"
+    ></app-async-select>
 
-<button (click)="handleSubmit()">
-  {{isEditMode ? 'Editar' : 'Cadastrar'}}
-</button>
+    <app-async-select
+      [form]="communicationForm"
+      controlName="lossCause"
+      label="Causa da perda"
+      [options]="LOSS_CAUSES"
+      [displayFunction]="displayFunctionLossCause"
+    ></app-async-select>
+  </form>
+</ng-template>

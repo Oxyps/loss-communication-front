@@ -1,0 +1,28 @@
+@import '../../../../styles.scss';
+
+button {
+  border: 0;
+  border-radius: 5px;
+
+  #item-wrapper {
+    display: flex;
+    align-items: center;
+  }
+}
+
+:host {
+  .mat-list-item {
+    background-color: #ffffff;
+
+    &:hover {
+      background-color: mat-color($loss-communication-front-primary, 200);
+    }
+    &.active {
+      background-color: mat-color($loss-communication-front-primary, 400);
+    }
+  }
+}
+
+::ng-deep .mat-list-item-content {
+  justify-content: space-between;
+}

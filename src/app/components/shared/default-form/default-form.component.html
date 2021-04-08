@@ -1,0 +1,18 @@
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="loading">
+</mat-progress-bar>
+
+<h2>{{title}}</h2>
+
+<ng-container
+  *ngTemplateOutlet="formTemplate"
+></ng-container>
+
+<button
+  mat-flat-button
+  color="primary"
+  (click)="handleSubmit.emit()"
+>
+  {{isEditMode ? 'Editar' : 'Cadastrar'}}
+</button>

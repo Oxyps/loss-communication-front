@@ -22,6 +22,8 @@ export class TillagesFormComponent implements OnInit {
   tillageForm!: FormGroup;
   formAppearance: MatFormFieldAppearance = 'outline';
 
+  title = 'Lavoura';
+  dataLoading: boolean = false;
   isEditMode = false;
   tillageId = null;
 
@@ -56,6 +58,8 @@ export class TillagesFormComponent implements OnInit {
   }
 
   async loadTillage(id: number | string): Promise<void> {
+    this.dataLoading = true;
+
     await this.tillageService.findById(id).toPromise()
       .then(response => {
         const date = new Date(response.harvest_date);
@@ -71,6 +75,9 @@ export class TillagesFormComponent implements OnInit {
       .catch(error => {
         // console.log(error);
       })
+      .finally(() => {
+        this.dataLoading = false;
+      })
     ;
   }
 
@@ -79,6 +86,8 @@ export class TillagesFormComponent implements OnInit {
       this.tillageForm.get('longitude')!.enable();
       this.tillageForm.get('latitude')!.enable();
     } else {
+      this.dataLoading = true;
+
       await this.locationService.findDevicePosition()
         .then(response => {
           this.tillageForm.get('longitude')!.setValue(response.lng);
@@ -89,6 +98,9 @@ export class TillagesFormComponent implements OnInit {
         })
         .catch(error => {
           // console.log(error);
+        })
+        .finally(() => {
+          this.dataLoading = false;
         })
       ;
     }
@@ -129,6 +141,8 @@ export class TillagesFormComponent implements OnInit {
         harvest_date: this.getFormatedDate(formValue.harvestDate),
       }
 
+      this.dataLoading = true;
+
       await this.tillageService.save(tillage).toPromise()
         .then(() => {
           this.pushSnackBar(true, 'Lavoura cadastrada com sucesso!');
@@ -136,6 +150,9 @@ export class TillagesFormComponent implements OnInit {
         })
         .catch(error => {
           this.pushSnackBar(false, 'Algo inesperado aconteceu. Não foi possível cadastrar.');
+        })
+        .finally(() => {
+          this.dataLoading = true;
         })
       ;
     }

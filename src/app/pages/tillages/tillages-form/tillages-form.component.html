@@ -1,106 +1,112 @@
-<form
-  [formGroup]="tillageForm"
-  novalidate
-  autocomplete="off"
-  (keyup.enter)="handleSubmit()"
->
-  <div id="location-row">
-    <mat-form-field
-      [appearance]="formAppearance"
-      id="longitude-field"
-    >
-      <mat-label>Longitude</mat-label>
+<app-default-form
+  [title]="title"
+  linkToBack="/lavouras"
+  [formTemplate]="formContainer"
+  [isEditMode]="isEditMode"
+  [loading]="dataLoading"
+  (handleSubmit)="handleSubmit()"
+></app-default-form>
 
-      <input
-        matInput
-        formControlName="longitude"
-        [allowNegativeNumbers]="true"
-        mask="separator,0*"
-        thousandSeparator=""
+<ng-template #formContainer>
+  <form
+    [formGroup]="tillageForm"
+    novalidate
+    autocomplete="off"
+    (keyup.enter)="handleSubmit()"
+  >
+    <div id="location-row">
+      <mat-form-field
+        [appearance]="formAppearance"
+        id="longitude-field"
       >
+        <mat-label>Longitude</mat-label>
 
-      <mat-error
-        *ngIf="tillageForm.get('longitude')!.hasError('required')"
+        <input
+          matInput
+          formControlName="longitude"
+          [allowNegativeNumbers]="true"
+          mask="separator,0*"
+          thousandSeparator=""
+        >
+
+        <mat-error
+          *ngIf="tillageForm.get('longitude')!.hasError('required')"
+        >
+          <strong>Longitude</strong> é obrigatório
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field
+        [appearance]="formAppearance"
+        id="latitude-field"
       >
-        <strong>Longitude</strong> é obrigatório
-      </mat-error>
-    </mat-form-field>
+        <mat-label>Latitude</mat-label>
 
-    <mat-form-field
-      [appearance]="formAppearance"
-      id="latitude-field"
-    >
-      <mat-label>Latitude</mat-label>
+        <input
+          matInput
+          formControlName="latitude"
+          [allowNegativeNumbers]="true"
+          mask="separator,0*"
+          thousandSeparator=""
+        >
 
-      <input
-        matInput
-        formControlName="latitude"
-        [allowNegativeNumbers]="true"
-        mask="separator,0*"
-        thousandSeparator=""
-      >
+        <mat-error
+          *ngIf="tillageForm.get('latitude')!.hasError('required')"
+        >
+          <strong>Latitude</strong> é obrigatório
+        </mat-error>
+      </mat-form-field>
 
-      <mat-error
-        *ngIf="tillageForm.get('latitude')!.hasError('required')"
-      >
-        <strong>Latitude</strong> é obrigatório
-      </mat-error>
-    </mat-form-field>
-
-    <div id="toggle-wrapper">
-      <mat-button-toggle
-        color="primary"
-        (click)="toggleLoadDeviceLocation()"
-      >
-        <mat-icon>search</mat-icon>
-      </mat-button-toggle>
+      <div id="toggle-wrapper">
+        <mat-button-toggle
+          (click)="toggleLoadDeviceLocation()"
+        >
+          <mat-icon>search</mat-icon>
+        </mat-button-toggle>
+      </div>
     </div>
-  </div>
 
-  <mat-form-field
-    [appearance]="formAppearance"
-    id="type-field"
-  >
-    <mat-label>Tipo</mat-label>
-
-    <input matInput formControlName="type">
-
-    <mat-error
-      *ngIf="tillageForm.get('type')!.hasError('required')"
+    <mat-form-field
+      [appearance]="formAppearance"
+      id="type-field"
     >
-      <strong>Tipo da colheita</strong> é obrigatório
-    </mat-error>
-  </mat-form-field>
+      <mat-label>Tipo</mat-label>
 
-  <mat-form-field
-    [appearance]="formAppearance"
-    id="harvest-date-field"
-  >
-    <mat-label>Data da colheita</mat-label>
+      <input matInput formControlName="type">
 
-    <input
-      matInput
-      [matDatepicker]="datePicker"
-      formControlName="harvestDate"
+      <mat-error
+        *ngIf="tillageForm.get('type')!.hasError('required')"
+      >
+        <strong>Tipo da colheita</strong> é obrigatório
+      </mat-error>
+    </mat-form-field>
+
+    <mat-form-field
+      [appearance]="formAppearance"
+      id="harvest-date-field"
     >
+      <mat-label>Data da colheita</mat-label>
 
-    <mat-datepicker-toggle
-      matSuffix
-      [for]="datePicker"
-    ></mat-datepicker-toggle>
+      <input
+        matInput
+        [matDatepicker]="datePicker"
+        formControlName="harvestDate"
+      >
 
-    <mat-datepicker
-      #datePicker
-    ></mat-datepicker>
+      <mat-datepicker-toggle
+        matSuffix
+        [for]="datePicker"
+      ></mat-datepicker-toggle>
 
-    <mat-error
-      *ngIf="tillageForm.get('harvestDate')!.hasError('required')"
-    >
-      <strong>Data de colheita</strong> é obrigatório
-    </mat-error>
-  </mat-form-field>
-</form>
+      <mat-datepicker
+        #datePicker
+      ></mat-datepicker>
 
-<button (click)="handleSubmit()">
-  {{isEditMode ? 'Editar' : 'Cadastrar'}}
-</button>
+      <mat-error
+        *ngIf="tillageForm.get('harvestDate')!.hasError('required')"
+      >
+        <strong>Data de colheita</strong> é obrigatório
+      </mat-error>
+    </mat-form-field>
+  </form>
+</ng-template>

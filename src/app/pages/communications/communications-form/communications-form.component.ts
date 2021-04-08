@@ -23,6 +23,8 @@ export class CommunicationsFormComponent implements OnInit {
   communicationForm!: FormGroup;
   formAppearance: MatFormFieldAppearance = 'outline';
 
+  title = 'Comunicação de perda';
+  dataLoading: boolean = false;
   isEditMode = false;
   communicationId = null;
 
@@ -57,6 +59,8 @@ export class CommunicationsFormComponent implements OnInit {
   }
 
   async loadCommunication(id: number | string): Promise<void> {
+    this.dataLoading = true;
+
     await this.communicationsService.findById(id).toPromise()
       .then(response => {
         this.communicationForm.setValue({
@@ -70,6 +74,9 @@ export class CommunicationsFormComponent implements OnInit {
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        this.dataLoading = false;
       })
     ;
   }
@@ -126,6 +133,8 @@ export class CommunicationsFormComponent implements OnInit {
         loss_cause: formValue.lossCause.key,
       }
 
+      this.dataLoading = true;
+
       await this.communicationsService.save(communication).toPromise()
         .then(() => {
           this.pushSnackBar(true, 'Comunicação de perda cadastrada com sucesso!');
@@ -136,7 +145,7 @@ export class CommunicationsFormComponent implements OnInit {
 
           switch (response.status) {
             case 409:
-              message = 'A lavoura escolhida pode já ter sido utilizada na comunicação de perda.'
+              message = 'A lavoura escolhida pode já ter sido cadastrada em outra comunicação de perda.'
             break;
             default:
               message = 'Algo inesperado aconteceu. Contate o suporte.';
@@ -144,6 +153,9 @@ export class CommunicationsFormComponent implements OnInit {
           }
 
           this.pushSnackBar(false, message);
+        })
+        .finally(() => {
+          this.dataLoading = false;
         })
       ;
     }

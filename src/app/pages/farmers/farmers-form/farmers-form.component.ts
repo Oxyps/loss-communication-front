@@ -18,6 +18,8 @@ export class FarmersFormComponent implements OnInit {
   farmerForm!: FormGroup;
   formAppearance: MatFormFieldAppearance = 'outline';
 
+  title = 'Agricultor';
+  dataLoading: boolean = false;
   isEditMode = false;
   farmerId = null;
 
@@ -28,7 +30,7 @@ export class FarmersFormComponent implements OnInit {
     private router: Router,
     private _snackBar: MatSnackBar,
     private activatedRoute: ActivatedRoute,
-    ) {
+  ) {
     this.createFarmerForm();
   }
 
@@ -57,6 +59,8 @@ export class FarmersFormComponent implements OnInit {
   }
 
   async loadFarmer(id: number | string): Promise<void> {
+    this.dataLoading = true;
+
     await this.farmerService.findById(id).toPromise()
       .then(response => {
         this.farmerForm.setValue({
@@ -67,6 +71,9 @@ export class FarmersFormComponent implements OnInit {
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        this.dataLoading = false;
       })
     ;
   }
@@ -96,6 +103,8 @@ export class FarmersFormComponent implements OnInit {
         name: formValue.name,
       }
 
+      this.dataLoading = true;
+
       await this.farmerService.save(farmer).toPromise()
         .then(() => {
           this.pushSnackBar(true, 'Agricultor cadastrado com sucesso!');
@@ -120,6 +129,9 @@ export class FarmersFormComponent implements OnInit {
           }
 
           this.pushSnackBar(false, message);
+        })
+        .finally(() => {
+          this.dataLoading = false;
         })
       ;
     }

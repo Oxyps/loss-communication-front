@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
-import { IConfig, NgxMaskModule } from 'ngx-mask';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { IConfig, NgxMaskModule } from 'ngx-mask';
 
 import { TillagesComponent } from './tillages.component';
 import { TillagesFormComponent } from './tillages-form/tillages-form.component';

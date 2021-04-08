@@ -1,23 +1,49 @@
-<div id="top-bar">
-  <button
-    routerLink="/agricultores"
+<mat-drawer-container>
+  <mat-drawer
+    #drawer
+    [mode]="drawerMode"
+    [opened]="drawer.opened"
   >
-    Agricultores
-  </button>
+    <mat-toolbar color="primary">
+      ProAgro Fácil
 
-  <button
-    routerLink="/lavouras"
-  >
-    Lavouras
-  </button>
+      <button
+        mat-icon-button
+        title="Fechar barra de navegação"
+        *ngIf="drawerMode === 'over'"
+        (click)="drawer.close()"
+      >
+        <mat-icon>arrow_left</mat-icon>
+      </button>
+    </mat-toolbar>
 
-  <button
-    routerLink="/comunicacoes-perda"
-  >
-    Comunicações de perda
-  </button>
-</div>
+    <mat-nav-list>
+      <app-nav-list-item
+        *ngFor="let route of navigationRoutes"
+        [item]="route"
+        [depth]="0"
+      ></app-nav-list-item>
+    </mat-nav-list>
+  </mat-drawer>
 
-<div id="page-container">
-  <router-outlet></router-outlet>
-</div>
+  <mat-drawer-content>
+    <mat-toolbar color="primary">
+      <button
+        mat-icon-button
+        (click)="drawer.toggle()"
+      >
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <span
+        *ngIf="(drawerMode === 'side' || drawerMode === 'over') && !drawer.opened"
+      >
+        ProAgro Fácil
+      </span>
+    </mat-toolbar>
+
+    <div id="page-container">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>

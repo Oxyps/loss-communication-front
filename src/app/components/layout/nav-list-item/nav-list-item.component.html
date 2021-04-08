@@ -1,0 +1,27 @@
+<button mat-list-item (click)="onItemSelected()"
+  [ngStyle]="{ 'padding-left': (depth * 12) + 'px' }"
+  [ngClass]="{ 'active': item.link ? router.isActive(item.link, true) : false, 'expanded': expanded }"
+>
+  <div id="item-wrapper">
+    <mat-icon
+      *ngIf="item.iconName"
+      class="mr-2"
+    >
+      {{item.iconName}}
+    </mat-icon>
+
+    <span>{{item.displayName}}</span>
+  </div>
+
+  <span *ngIf="item.nestedRoutes && item.nestedRoutes.length">
+    <mat-icon [@indicatorRotate]="expanded ? 'expanded': 'collapsed'" class="mr-3">
+      keyboard_arrow_left
+    </mat-icon>
+  </span>
+</button>
+
+<div *ngIf="expanded">
+  <app-nav-list-item
+    *ngFor="let route of item.nestedRoutes" [item]="route" [depth]="depth + 1"
+  ></app-nav-list-item>
+</div>

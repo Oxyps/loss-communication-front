@@ -9,24 +9,30 @@ import { TillagesService } from 'src/app/services/tillages.service';
   styleUrls: ['./tillages.component.scss'],
 })
 export class TillagesComponent implements OnInit {
+  tillages: TillageModel[] = [];
+  dataLoading: boolean = false;
+
   constructor(
     private tillageService: TillagesService,
     private _snackBar: MatSnackBar,
   ) {}
-
-  tillages: TillageModel[] = [];
 
   ngOnInit(): void {
     this.loadTillages();
   }
 
   async loadTillages(): Promise<void> {
+    this.dataLoading = true;
+
     this.tillageService.findAll().toPromise()
       .then(response => {
         this.tillages = response;
       })
       .catch(error => {
         // console.log(error);
+      })
+      .finally(() => {
+        this.dataLoading = true;
       })
     ;
   }
@@ -62,6 +68,9 @@ export class TillagesComponent implements OnInit {
           false,
           'Lavoura não pode ser deletada. Remova primeiro os registros que referenciam ela!'
         );
+      })
+      .finally(() => {
+        this.dataLoading = true;
       })
     ;
   }
