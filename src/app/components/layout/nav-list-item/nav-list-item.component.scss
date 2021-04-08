@@ -5,8 +5,14 @@ button {
   border-radius: 5px;
 
   #item-wrapper {
+    width: 100%;
     display: flex;
+    justify-content: space-between;
     align-items: center;
+
+    span {
+      margin-right: 10px;
+    }
   }
 }
 
@@ -21,8 +27,4 @@ button {
       background-color: mat-color($loss-communication-front-primary, 400);
     }
   }
-}
-
-::ng-deep .mat-list-item-content {
-  justify-content: space-between;
 }

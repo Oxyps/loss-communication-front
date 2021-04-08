@@ -1,6 +1,7 @@
 import { Component, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { MediaChange, MediaObserver } from '@angular/flex-layout';
 import { Observable } from 'rxjs';
+import { RouteItem } from './nav-list-item/nav-list-item.component';
 
 import { NavService } from './nav-list-item/nav-service';
 
@@ -16,10 +17,16 @@ export class LayoutComponent implements AfterViewInit {
 
   media$: Observable<MediaChange[]>;
 
-  navigationRoutes = [
-    { displayName: 'Agricultores', link: '/agricultores', iconName: '' },
-    { displayName: 'Lavouras', link: '/lavouras', iconName: '' },
-    { displayName: 'Comunicações de perda', link: '/comunicacoes-perda', iconName: '' },
+  navigationRoutes: RouteItem[] = [
+    {
+      displayName: 'Cadastros',
+      link: '',
+      nestedRoutes: [
+        { displayName: 'Agricultores', link: '/agricultores', iconName: 'person' },
+        { displayName: 'Lavouras', link: '/lavouras', iconName: 'grass' },
+        { displayName: 'Comunicações de perda', link: '/comunicacoes-perda', iconName: 'info' },
+      ]
+    },
   ];
 
   constructor(

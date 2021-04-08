@@ -9,6 +9,8 @@ import { CommunicationsService } from 'src/app/services/communications.service';
   styleUrls: ['./communications.component.scss'],
 })
 export class CommunicationsComponent {
+  title = 'Comunicações de perda';
+  dataLoading: boolean = false;
   communications: CommunicationModel[] = [];
 
   constructor(
@@ -21,12 +23,17 @@ export class CommunicationsComponent {
   }
 
   async loadCommunications(): Promise<void> {
+    this.dataLoading = true;
+
     this.communicationsService.findAll().toPromise()
       .then(response => {
         this.communications = response;
       })
       .catch(error => {
         console.log(error);
+      })
+      .finally(() => {
+        this.dataLoading = false;
       })
     ;
   }
@@ -50,6 +57,8 @@ export class CommunicationsComponent {
   }
 
   async handleDelete(id: string | number) {
+    this.dataLoading = true;
+
     await this.communicationsService.delete(id).toPromise()
       .then(() => {
         this.pushSnackBar(
@@ -66,6 +75,9 @@ export class CommunicationsComponent {
           false,
           'Comunicação de perda não pode ser deletada. Remova primeiro os registros que referenciam ela!'
         );
+      })
+      .finally(() => {
+        this.dataLoading = false;
       })
     ;
   }

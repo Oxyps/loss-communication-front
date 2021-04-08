@@ -1,36 +1,44 @@
-<div id="header">
-  <h2>Lavouras</h2>
+<app-default-table
+  [title]="title"
+  [tableTemplate]="tableContainer"
+  [loading]="dataLoading"
+></app-default-table>
 
-  <button routerLink="./cadastrar">
-    Cadastrar
-  </button>
-</div>
+<ng-template #tableContainer>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Longitude</th>
+      <th>Latitude</th>
+      <th>Tipo</th>
+      <th>Data colheita</th>
+      <th>Ações</th>
+    </tr>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>Longitude</th>
-    <th>Latitude</th>
-    <th>Tipo</th>
-    <th>Data colheita</th>
-    <th>Ações</th>
-  </tr>
+    <tr *ngFor="let tillage of tillages">
+      <td>{{tillage.id}}</td>
+      <td>{{tillage.longitude}}</td>
+      <td>{{tillage.latitude}}</td>
+      <td>{{tillage.type}}</td>
+      <td>{{tillage.harvest_date}}</td>
 
-  <tr *ngFor="let tillage of tillages">
-    <td>{{tillage.id}}</td>
-    <td>{{tillage.longitude}}</td>
-    <td>{{tillage.latitude}}</td>
-    <td>{{tillage.type}}</td>
-    <td>{{tillage.harvest_date}}</td>
+      <td>
+        <button
+          mat-icon-button
+          color="primary"
+          [routerLink]="tillage.id!"
+        >
+          <mat-icon>create</mat-icon>
+        </button>
 
-    <td>
-      <button [routerLink]="tillage.id">
-        Ver/Editar
-      </button>
-
-      <button (click)="handleDelete(tillage.id!)">
-        Deletar
-      </button>
-    </td>
-  </tr>
-</table>
+        <button
+          mat-icon-button
+          color="warn"
+          (click)="handleDelete(tillage.id!)"
+        >
+          <mat-icon>delete</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+</ng-template>

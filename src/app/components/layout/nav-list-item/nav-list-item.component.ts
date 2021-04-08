@@ -4,7 +4,7 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
 
 import { NavService } from './nav-service';
 
-interface RouteItem {
+export interface RouteItem {
   displayName: string;
   iconName?: string;
   link?: string;

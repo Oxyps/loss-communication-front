@@ -10,24 +10,31 @@ import { FarmersService } from 'src/app/services/farmers.service';
   styleUrls: ['./farmers.component.scss'],
 })
 export class FarmersComponent implements OnInit {
+  title = 'Agricultores';
+  dataLoading: boolean = false;
+  farmers: FarmerModel[] = [];
+
   constructor(
     private farmersService: FarmersService,
     private _snackBar: MatSnackBar,
   ) {}
-
-  farmers: FarmerModel[] = [];
 
   ngOnInit(): void {
     this.loadFarmers();
   }
 
   async loadFarmers(): Promise<void> {
+    this.dataLoading = true;
+
     this.farmersService.findAll().toPromise()
       .then(response => {
         this.farmers = response;
       })
       .catch(error => {
         // console.log(error);
+      })
+      .finally(() => {
+        this.dataLoading = false;
       })
     ;
   }
@@ -47,6 +54,8 @@ export class FarmersComponent implements OnInit {
   }
 
   async handleDelete(id: string | number) {
+    this.dataLoading = true;
+
     await this.farmersService.delete(id).toPromise()
       .then(() => {
         this.pushSnackBar(
@@ -63,6 +72,9 @@ export class FarmersComponent implements OnInit {
           false,
           'Agricultor não pode ser deletado. Remova primeiro os registros que referenciam ele!'
         );
+      })
+      .finally(() => {
+        this.dataLoading = false;
       })
     ;
   }

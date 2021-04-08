@@ -1,0 +1,21 @@
+<mat-progress-bar
+  mode="indeterminate"
+  *ngIf="loading">
+</mat-progress-bar>
+
+<div id="header">
+  <h2>{{title}}</h2>
+
+  <button
+    mat-flat-button
+    routerLink="./cadastrar"
+    color="primary"
+    name="Botão de cadastrar"
+  >
+    Cadastrar
+  </button>
+</div>
+
+<ng-container
+  *ngTemplateOutlet="tableTemplate"
+></ng-container>

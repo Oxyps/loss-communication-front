@@ -9,8 +9,9 @@ import { TillagesService } from 'src/app/services/tillages.service';
   styleUrls: ['./tillages.component.scss'],
 })
 export class TillagesComponent implements OnInit {
-  tillages: TillageModel[] = [];
+  title = 'Lavouras';
   dataLoading: boolean = false;
+  tillages: TillageModel[] = [];
 
   constructor(
     private tillageService: TillagesService,
@@ -32,7 +33,7 @@ export class TillagesComponent implements OnInit {
         // console.log(error);
       })
       .finally(() => {
-        this.dataLoading = true;
+        this.dataLoading = false;
       })
     ;
   }
@@ -52,6 +53,8 @@ export class TillagesComponent implements OnInit {
   }
 
   async handleDelete(id: string | number) {
+    this.dataLoading = true;
+
     await this.tillageService.delete(id).toPromise()
       .then(() => {
         this.pushSnackBar(
@@ -70,7 +73,7 @@ export class TillagesComponent implements OnInit {
         );
       })
       .finally(() => {
-        this.dataLoading = true;
+        this.dataLoading = false;
       })
     ;
   }
