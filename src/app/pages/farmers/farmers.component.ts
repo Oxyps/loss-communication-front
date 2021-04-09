@@ -32,10 +32,10 @@ export class FarmersComponent implements OnInit {
     this.loadFarmers(this.current_page);
   }
 
-  async loadFarmers(page: number): Promise<void> {
+  async loadFarmers(page: number, cpf?: string): Promise<void> {
     this.dataLoading = true;
 
-    this.farmersService.findAll( {page} ).toPromise()
+    this.farmersService.findAll( {page, cpf} ).toPromise()
       .then(response => {
         this.farmers = response.data;
         this.pagination = {...response};

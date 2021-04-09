@@ -5,7 +5,45 @@
 ></app-default-table>
 
 <ng-template #tableContainer>
-  <table>
+  <mat-form-field
+    [appearance]="formAppearance"
+    id="search-cpf"
+  >
+    <mat-label>Buscar CPF</mat-label>
+
+    <input
+      matInput
+      #cpfInput
+      (ngModelOptions)="{standalone:true}"
+      (keyup.enter)="loadFarmers(current_page, cpfInput.value)"
+      title="Tecle enter para pesquisar"
+    >
+
+    <button
+      mat-icon-button
+      matPrefix
+      type="submit"
+      class="mr-2"
+      (click)="loadFarmers(current_page, cpfInput.value)"
+      title="Clique para pesquisar"
+    >
+      <mat-icon (click)="loadFarmers(current_page, cpfInput.value)">
+        search
+      </mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="cpfInput.setValue('')"
+      title="Fechar barra de pesquisa"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <table *ngIf="farmers.length > 0">
     <tr>
       <th>ID</th>
       <th>CPF</th>
@@ -42,9 +80,13 @@
     </tr>
   </table>
 
+  <p *ngIf="farmers.length === 0">
+    Não foram encontrados registros no banco de dados.
+  </p>
+
   <div
     id="pagination"
-    *ngIf="pagination"
+    *ngIf="farmers.length > 0"
   >
     <button
       mat-icon-button
