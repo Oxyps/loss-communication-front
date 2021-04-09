@@ -102,6 +102,8 @@ export class CommunicationsComponent {
       })
       .finally(() => {
         this.dataLoading = false;
+
+        this.loadCommunications(this.current_page);
       })
     ;
   }

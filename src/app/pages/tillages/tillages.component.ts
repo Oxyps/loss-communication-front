@@ -90,7 +90,7 @@ export class TillagesComponent implements OnInit {
           tillage => tillage.id != id
         );
       })
-      .catch(error => {
+      .catch(() => {
         this.pushSnackBar(
           false,
           'Lavoura não pode ser deletada. Remova primeiro os registros que referenciam ela!'
@@ -98,6 +98,8 @@ export class TillagesComponent implements OnInit {
       })
       .finally(() => {
         this.dataLoading = false;
+
+        this.loadTillages(this.current_page);
       })
     ;
   }

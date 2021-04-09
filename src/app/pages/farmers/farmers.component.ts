@@ -84,7 +84,7 @@ export class FarmersComponent implements OnInit {
       .then(() => {
         this.pushSnackBar(
           true,
-          'Agricultor deletado com sucesso!'
+          'Agricultor deletado com sucesso.'
         );
 
         this.farmers = this.farmers.filter(
@@ -94,11 +94,13 @@ export class FarmersComponent implements OnInit {
       .catch(error => {
         this.pushSnackBar(
           false,
-          'Agricultor não pode ser deletado. Remova primeiro os registros que referenciam ele!'
+          'Agricultor não pode ser deletado. Remova primeiro os registros que referenciam ele.'
         );
       })
       .finally(() => {
         this.dataLoading = false;
+
+        this.loadFarmers(this.current_page);
       })
     ;
   }
