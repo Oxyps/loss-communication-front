@@ -9,18 +9,3 @@ form {
     margin: 10px 0;
   }
 }
-
-::ng-deep .success-snackbar {
-  background-color: limegreen;
-  color: white;
-}
-
-::ng-deep .error-snackbar {
-  background-color: firebrick;
-  color: white;
-}
-
-::ng-deep .warning-snackbar {
-  background-color: #fff3cd;
-  color: #856404;
-}

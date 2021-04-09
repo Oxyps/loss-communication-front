@@ -31,10 +31,10 @@ export class CommunicationsComponent {
     this.loadCommunications(this.current_page);
   }
 
-  async loadCommunications(page: number): Promise<void> {
+  async loadCommunications(page: number, farmerCpf?: string): Promise<void> {
     this.dataLoading = true;
 
-    this.communicationsService.findAll( {page} ).toPromise()
+    this.communicationsService.findAll( {page, farmerCpf} ).toPromise()
       .then(response => {
         this.communications = response.data;
         this.pagination = {...response};

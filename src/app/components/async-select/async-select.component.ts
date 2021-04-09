@@ -78,7 +78,7 @@ export class AsyncSelectComponent<T extends BaseModel> implements OnInit {
 
           return this.service!.findAll(query)
             .pipe(
-              map(response => response),
+              map(response => response.data),
               catchError(() => of([])),
               finalize(() => this.optionsLoading = false)
             )

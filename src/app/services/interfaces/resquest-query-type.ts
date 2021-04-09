@@ -3,5 +3,5 @@ export interface RequestQueryType<T> {
   page?: number | string;
 
   // only for models that have this field
-  cpf?: string;
+  farmerCpf?: string;
 }

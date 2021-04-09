@@ -24,8 +24,9 @@ export class BaseService<T extends BaseModel> {
     if (query?.page) {
       params = params.append('page', query.page.toString());
     }
-    if (query?.cpf) {
-      params = params.append('cpf', query.cpf);
+    if (query?.farmerCpf) {
+      params = params.append('cpf', query.farmerCpf);
+      params = params.append('farmer__cpf', query.farmerCpf);
     }
 
     return this.http.get<ResponseType<T>>(

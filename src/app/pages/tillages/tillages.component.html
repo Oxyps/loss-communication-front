@@ -5,7 +5,7 @@
 ></app-default-table>
 
 <ng-template #tableContainer>
-  <table>
+  <table *ngIf="tillages.length > 0">
     <tr>
       <th>ID</th>
       <th>Longitude</th>
@@ -42,13 +42,17 @@
     </tr>
   </table>
 
+  <p *ngIf="tillages.length === 0">
+    Não foram encontrados registros no banco de dados.
+  </p>
+
   <div
     id="pagination"
-    *ngIf="pagination"
+    *ngIf="tillages.length > 0"
   >
     <button
       mat-icon-button
-      [disabled]="pagination.previous_page === null"
+      [disabled]="pagination!.previous_page === null"
       (click)="loadPreviousPage()"
     >
       <mat-icon>arrow_left</mat-icon>
@@ -68,7 +72,7 @@
 
     <button
       mat-icon-button
-      [disabled]="pagination.next_page === null"
+      [disabled]="pagination!.next_page === null"
       (click)="loadNextPage()"
     >
       <mat-icon>arrow_right</mat-icon>
