@@ -1,27 +1,47 @@
-# LossCommunicationFront
+# [CRUD de Comunicação de Perdas UI](https://github.com/oxyps/loss-communication-back)
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 11.0.5.
+## Primeiros passos para rodar o projeto
+1. Clonar ou baixar o repositório do [projeto](https://github.com/oxyps/loss-communication-front);
 
-## Development server
+1. Certificar-se de que possui o [Node.js](https://nodejs.org/en/download/) instalado;
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+1. Instalar a command line tool do Angular de forma global, caso não possua:
+  ``` shell
+    > npm install -g @angular/cli
+  ```
 
-## Code scaffolding
+1. Na raíz do projeto (pasta com o arquivo `package.json`) rodar o comando abaixo para instalar as dependências do projeto:
+  ``` shell
+    > npm install
+  ```
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+1. Assegurar-se de inserir a rota correta da API na variável de ambiente `./src/app/environments/environment.ts`, como mostrado a seguir.
+  ``` js
+      export const environment = {
+          production: false,
+          api_url: 'http://127.0.0.1:8000/api',
+      };
+  ```
 
-## Build
+1. Servir a interface de usuário utilizando o comando;
+  ``` shell
+    > ng s
+  ```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
-## Running unit tests
+## Rotas
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+**Lavouras**
+* Listagem de lavouras cadastradas: `localhost:4200/lavouras/`;
+* Formulário para cadastro de lavoura: `localhost:4200/lavouras/cadastrar/`;
+* Formulário para editar dados de lavoura: `localhost:4200/lavouras/:id/`;
 
-## Running end-to-end tests
+**Agricultores**
+* Listagem e busca de agricultores cadastrados: `localhost:4200/agricultores/`;
+* Formulário para cadastro de agricultor: `localhost:4200/agricultores/cadastrar/`;
+* Formulário para editar dados de agricultor: `localhost:4200/agricultores/:id/`;
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+**Comunicações de perda**
+* Listagem e busca de comunicações de perda cadastrados: `localhost:4200/comunicacoes-perda/`;
+* Formulário para cadastro de comunicação de perda: `localhost:4200/comunicacoes-perda/cadastrar/`;
+* Formulário para editar dados de comunicação de perda: `localhost:4200/comunicacoes-perda/:id/`;
