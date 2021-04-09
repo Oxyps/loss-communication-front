@@ -45,3 +45,8 @@
 * Listagem e busca de comunicações de perda cadastrados: `localhost:4200/comunicacoes-perda/`;
 * Formulário para cadastro de comunicação de perda: `localhost:4200/comunicacoes-perda/cadastrar/`;
 * Formulário para editar dados de comunicação de perda: `localhost:4200/comunicacoes-perda/:id/`;
+
+
+## Tecnologias utilizadas
+- [x] [Angular](https://v2.angular.io/docs/ts/latest/)
+- [x] [Angular Material](https://material.angular.io/)
