@@ -1,4 +1,4 @@
-# [CRUD de Comunicação de Perdas UI](https://github.com/oxyps/loss-communication-back)
+# [Comunicação de Perdas UI](https://github.com/oxyps/loss-communication-front)
 
 ## Primeiros passos para rodar o projeto
 1. Clonar ou baixar o repositório do [projeto](https://github.com/oxyps/loss-communication-front);
