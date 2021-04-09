@@ -13,22 +13,4 @@ export class DefaultFormComponent {
   @Input() isEditMode!: boolean;
 
   @Output() handleSubmit: EventEmitter<any> = new EventEmitter();
-
-  constructor(
-    private _snackBar: MatSnackBar,
-  ) { }
-
-  pushSnackBar(success: boolean, message: string): void {
-    this._snackBar.open(
-      message,
-      'x', {
-        duration: 5000,
-        panelClass: [
-          success ? 'success-snackbar' : 'error-snackbar'
-        ],
-        verticalPosition: 'top',
-        horizontalPosition: 'right'
-      }
-    );
-  }
 }

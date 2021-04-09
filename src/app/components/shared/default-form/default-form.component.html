@@ -3,7 +3,17 @@
   *ngIf="loading">
 </mat-progress-bar>
 
-<h2>{{title}}</h2>
+<div id="header">
+  <h2>{{title}}</h2>
+
+  <button
+    mat-icon-button
+    title="Voltar para listagens"
+    routerLink="../"
+  >
+    <mat-icon>arrow_left</mat-icon>
+  </button>
+</div>
 
 <ng-container
   *ngTemplateOutlet="formTemplate"

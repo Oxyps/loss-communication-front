@@ -1,4 +1,5 @@
 form {
+  width: 300px;
   margin: 10px 0;
   display: flex;
   flex-direction: column;
@@ -8,7 +9,7 @@ form {
 #emailField,
 #nameField {
   width: 100%;
-  margin: 0 30px 10px 30px;
+  margin: 10px 0;
 }
 
 ::ng-deep .success-snackbar {
