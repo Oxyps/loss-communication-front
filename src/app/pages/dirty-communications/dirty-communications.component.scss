@@ -1,0 +1,28 @@
+#search-cpf {
+  width: 100%;
+}
+
+table {
+  width: 100%;
+
+  tr th {
+    padding: 10px;
+    text-align: center;
+  }
+  tr td {
+    padding: 5px;
+    text-align: center;
+  }
+
+  tr td:last-child button {
+    margin: 0 5px;
+  }
+}
+
+#pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p { margin: 0 }
+}

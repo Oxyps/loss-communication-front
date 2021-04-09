@@ -24,7 +24,22 @@ export class LayoutComponent implements AfterViewInit {
       nestedRoutes: [
         { displayName: 'Agricultores', link: '/agricultores', iconName: 'person' },
         { displayName: 'Lavouras', link: '/lavouras', iconName: 'grass' },
-        { displayName: 'Comunicações de perda', link: '/comunicacoes-perda', iconName: 'info' },
+        {
+          displayName: 'Comunicações de perda',
+
+          nestedRoutes: [
+            {
+              displayName: 'Revisadas',
+              link: '/comunicacoes-perda/revisadas',
+              iconName: 'thumb_up'
+            },
+            {
+              displayName: 'Não revisadas',
+              link: 'comunicacoes-perda/nao-revisadas',
+              iconName: 'thumb_down',
+            }
+          ]
+        },
       ]
     },
   ];

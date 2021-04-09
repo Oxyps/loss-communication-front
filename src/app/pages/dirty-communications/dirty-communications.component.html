@@ -1,0 +1,110 @@
+<app-default-table
+  [title]="title"
+  [tableTemplate]="tableContainer"
+  [loading]="dataLoading"
+></app-default-table>
+
+<ng-template #tableContainer>
+  <mat-form-field id="search-cpf">
+    <mat-label>Buscar CPF do agricultor</mat-label>
+
+    <input
+      matInput
+      #cpfInput
+      (ngModelOptions)="{standalone:true}"
+      (keyup.enter)="loadDirtyCommunications(current_page, cpfInput.value)"
+      title="Tecle enter para pesquisar"
+    >
+
+    <button
+      mat-icon-button
+      matPrefix
+      type="submit"
+      class="mr-2"
+      (click)="loadDirtyCommunications(current_page, cpfInput.value)"
+      title="Clique para pesquisar"
+    >
+      <mat-icon (click)="loadDirtyCommunications(current_page, cpfInput.value)">
+        search
+      </mat-icon>
+    </button>
+
+    <button
+      mat-icon-button
+      matSuffix
+      type="button"
+      (click)="cpfInput.value = ''"
+      title="Fechar barra de pesquisa"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-form-field>
+
+  <table *ngIf="dirtyCommunications.length > 0">
+    <tr>
+      <th>ID</th>
+      <th>CPF</th>
+      <th>Nome</th>
+      <th>Tipo</th>
+      <th>Data colheita</th>
+      <th>Causa</th>
+      <th>Ações</th>
+    </tr>
+
+    <tr *ngFor="let communication of dirtyCommunications">
+      <td>{{communication.id}}</td>
+      <td>{{communication.farmer.cpf}}</td>
+      <td>{{communication.farmer.name}}</td>
+      <td>{{communication.tillage.type}}</td>
+      <td>{{communication.tillage.harvest_date}}</td>
+      <td>{{getLossCause(communication)}}</td>
+
+      <td>
+        <button
+          mat-icon-button
+          color="primary"
+          [routerLink]="communication.id!"
+        >
+          <mat-icon>info</mat-icon>
+        </button>
+      </td>
+    </tr>
+  </table>
+
+  <p *ngIf="dirtyCommunications.length === 0">
+    Não existem comunicações de perda que a serem revisadas.
+  </p>
+
+  <div
+    id="pagination"
+    *ngIf="dirtyCommunications.length > 0"
+  >
+    <button
+      mat-icon-button
+      [disabled]="pagination!.previous_page === null"
+      (click)="loadPreviousPage()"
+    >
+      <mat-icon>arrow_left</mat-icon>
+    </button>
+
+    <p>
+      <strong>
+        {{current_page}}
+      </strong>
+      <strong>
+        /
+      </strong>
+      <strong>
+        {{getAllPages()}}
+      </strong>
+    </p>
+
+    <button
+      mat-icon-button
+      [disabled]="pagination!.next_page === null"
+      (click)="loadNextPage()"
+    >
+      <mat-icon>arrow_right</mat-icon>
+    </button>
+  </div>
+</ng-template>

@@ -18,4 +18,5 @@ export interface CommunicationModel extends BaseModel {
   tillage: TillageModel;
 
   loss_cause: string;
+  is_dirty: boolean;
 }

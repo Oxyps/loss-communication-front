@@ -4,4 +4,5 @@ export interface RequestQueryType<T> {
 
   // only for models that have this field
   farmerCpf?: string;
+  communicationIsDirty?: boolean;
 }

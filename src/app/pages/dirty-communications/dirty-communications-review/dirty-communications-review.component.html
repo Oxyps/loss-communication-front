@@ -1,0 +1,46 @@
+<app-default-form
+  [title]="title"
+  [formTemplate]="formContainer"
+  [loading]="dataLoading"
+  (handleSubmit)="handleSubmit()"
+></app-default-form>
+
+<ng-template #formContainer>
+  <form
+    [formGroup]="dirtyCommunicationForm"
+    novalidate
+    autocomplete="off"
+    (keyup.enter)="handleSubmit()"
+  >
+    <app-async-select
+      [form]="dirtyCommunicationForm"
+      controlName="farmer"
+      label="Agricultor"
+      [service]="farmersService"
+      [displayFunction]="displayFunctionFarmer"
+    ></app-async-select>
+
+    <app-async-select
+      [form]="dirtyCommunicationForm"
+      controlName="tillage"
+      label="Lavoura"
+      [service]="tillagesService"
+      [displayFunction]="displayFunctionTillage"
+    ></app-async-select>
+
+    <app-async-select
+      [form]="dirtyCommunicationForm"
+      controlName="lossCause"
+      label="Causa da perda"
+      [options]="LOSS_CAUSES"
+      [displayFunction]="displayFunctionLossCause"
+    ></app-async-select>
+
+    <mat-slide-toggle
+      (onClick)="toggleIsDirty()"
+      color="primary"
+    >
+      Válida
+    </mat-slide-toggle>
+  </form>
+</ng-template>

@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams, HttpResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -27,6 +27,11 @@ export class BaseService<T extends BaseModel> {
     if (query?.farmerCpf) {
       params = params.append('cpf', query.farmerCpf);
       params = params.append('farmer__cpf', query.farmerCpf);
+    }
+    if (query?.communicationIsDirty) {
+      params = params.append(
+        'is_dirty', query.communicationIsDirty.toString()
+      );
     }
 
     return this.http.get<ResponseType<T>>(

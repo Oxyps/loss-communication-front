@@ -15,17 +15,16 @@ import { TillageModel } from 'src/app/models/tillage.model';
 import { DatePipe } from '@angular/common';
 
 @Component({
-  selector: 'app-communications-form',
-  templateUrl: './communications-form.component.html',
-  styleUrls: ['./communications-form.component.scss'],
+  selector: 'app-dirty-communications-review',
+  templateUrl: './dirty-communications-review.component.html',
+  styleUrls: ['./dirty-communications-review.component.scss'],
 })
-export class CommunicationsFormComponent implements OnInit {
-  communicationForm!: FormGroup;
+export class DirtyCommunicationsReviewComponent implements OnInit {
+  dirtyCommunicationForm!: FormGroup;
   formAppearance: MatFormFieldAppearance = 'outline';
 
-  title = 'Comunicação de perda';
+  title = 'Revisar comunicação de perda';
   dataLoading: boolean = false;
-  isEditMode = false;
   communicationId = null;
 
   constructor(
@@ -41,7 +40,7 @@ export class CommunicationsFormComponent implements OnInit {
   }
 
   createCommunicationForm(): void {
-    this.communicationForm = this._formBuilder.group({
+    this.dirtyCommunicationForm = this._formBuilder.group({
       farmer: [null, [Validators.required]],
       tillage: [null, [Validators.required]],
       lossCause: [null, [Validators.required]],
@@ -51,25 +50,25 @@ export class CommunicationsFormComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.params.subscribe(params => {
       if (params?.id) {
-        this.isEditMode = true;
         this.communicationId = params.id;
-        this.loadCommunication(params.id);
+        this.loadDirtyCommunication(params.id);
       }
     });
   }
 
-  async loadCommunication(id: number | string): Promise<void> {
+  async loadDirtyCommunication(id: number | string): Promise<void> {
     this.dataLoading = true;
 
     await this.communicationsService.findById(id).toPromise()
       .then(response => {
-        this.communicationForm.setValue({
+        this.dirtyCommunicationForm.setValue({
           farmer: response.farmer,
           tillage: response.tillage,
           lossCause: {
             key: response.loss_cause,
             value: LOSS_CAUSES[response.loss_cause]
           },
+          isDirty: response.is_dirty,
         });
       })
       .catch(error => {
@@ -108,6 +107,13 @@ export class CommunicationsFormComponent implements OnInit {
     return option ? option.value : '';
   }
 
+  toggleIsDirty(): void {
+    const value = this.dirtyCommunicationForm.get('isDirty')!.value;
+
+    console.log(!value);
+    this.dirtyCommunicationForm.get('isDirty')!.setValue(!value);
+  }
+
   pushSnackBar(success: boolean, message: string): void {
     this._snackBar.open(
       message,
@@ -121,55 +127,46 @@ export class CommunicationsFormComponent implements OnInit {
   }
 
   async handleSubmit(): Promise<void> {
-    if (this.communicationForm.invalid) {
-      this.communicationForm.markAllAsTouched();
+    console.log(this.dirtyCommunicationForm);
+
+    if (this.dirtyCommunicationForm.invalid) {
+      this.dirtyCommunicationForm.markAllAsTouched();
     } else {
-      const formValue = this.communicationForm.getRawValue();
+      // const formValue = this.dirtyCommunicationForm.getRawValue();
 
-      const communication: CommunicationModel = {
-        id: this.communicationId ? this.communicationId! : undefined,
-        farmer: formValue.farmer.id,
-        tillage: formValue.tillage.id,
-        loss_cause: formValue.lossCause.key,
-        is_dirty: false,
-      }
+      // const communication: CommunicationModel = {
+      //   id: this.communicationId ? this.communicationId! : undefined,
+      //   farmer: formValue.farmer.id,
+      //   tillage: formValue.tillage.id,
+      //   loss_cause: formValue.lossCause.key,
+      //   is_dirty: false,
+      // }
 
-      this.dataLoading = true;
+      // this.dataLoading = true;
 
-      await this.communicationsService.save(communication).toPromise()
-        .then(response => {
-          let message = '';
+      // await this.communicationsService.save(communication).toPromise()
+      //   .then(() => {
+      //     this.pushSnackBar(true, 'Comunicação de perda cadastrada com sucesso!');
+      //     this.router.navigate(['/comunicacoes-perda']);
+      //   })
+      //   .catch(response => {
+      //     let message = '';
 
-          switch (response.status) {
-            case 409:
-              message = 'A lavoura escolhida pode já ter sido cadastrada em outra comunicação de perda.'
-            break;
-            default:
-              message = 'Algo inesperado aconteceu. Contate o suporte.';
-            break;
-          }
+      //     switch (response.status) {
+      //       case 409:
+      //         message = 'A lavoura escolhida pode já ter sido cadastrada em outra comunicação de perda.'
+      //       break;
+      //       default:
+      //         message = 'Algo inesperado aconteceu. Contate o suporte.';
+      //       break;
+      //     }
 
-          this.pushSnackBar(false, message);
-          this.router.navigate(['/comunicacoes-perda/revisadas']);
-        })
-        .catch(response => {
-          let message = '';
-
-          switch (response.status) {
-            case 409:
-              message = 'A lavoura escolhida pode já ter sido cadastrada em outra comunicação de perda.'
-            break;
-            default:
-              message = 'Algo inesperado aconteceu. Contate o suporte.';
-            break;
-          }
-
-          this.pushSnackBar(false, message);
-        })
-        .finally(() => {
-          this.dataLoading = false;
-        })
-      ;
+      //     this.pushSnackBar(false, message);
+      //   })
+      //   .finally(() => {
+      //     this.dataLoading = false;
+      //   })
+      // ;
     }
   }
 }

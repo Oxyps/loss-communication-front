@@ -26,11 +26,24 @@ const routes: Routes = [
       },
       {
         path: 'comunicacoes-perda',
-        loadChildren: () => {
-          return import('./pages/communications/communications.module')
-            .then(m => m.CommunicationsModule)
-          ;
-        }
+        children: [
+          {
+            path: 'revisadas',
+            loadChildren: () => {
+              return import('./pages/communications/communications.module')
+                .then(m => m.CommunicationsModule)
+              ;
+            }
+          },
+          {
+            path: 'nao-revisadas',
+            loadChildren: () => {
+              return import('./pages/dirty-communications/dirty-communications.module')
+                .then(m => m.DirtyCommunicationsModule)
+              ;
+            }
+          },
+        ]
       },
     ]
   }

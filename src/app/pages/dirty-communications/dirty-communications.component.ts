@@ -4,15 +4,15 @@ import { CommunicationModel, LOSS_CAUSES } from 'src/app/models/communication.mo
 import { CommunicationsService } from 'src/app/services/communications.service';
 
 @Component({
-  selector: 'app-communications',
-  templateUrl: './communications.component.html',
-  styleUrls: ['./communications.component.scss'],
+  selector: 'app-dirty-communications',
+  templateUrl: './dirty-communications.component.html',
+  styleUrls: ['./dirty-communications.component.scss'],
 })
-export class CommunicationsComponent {
-  title = 'Comunicações de perda';
+export class DirtyCommunicationsComponent {
+  title = 'Comunicações de perda não revisadas';
   dataLoading: boolean = false;
 
-  communications: CommunicationModel[] = [];
+  dirtyCommunications: CommunicationModel[] = [];
 
   pagination?: {
     previous_page: number | null,
@@ -28,17 +28,20 @@ export class CommunicationsComponent {
   ) {}
 
   ngOnInit(): void {
-    this.loadCommunications(this.current_page);
+    this.loadDirtyCommunications(this.current_page);
   }
 
-  async loadCommunications(page: number, farmerCpf?: string): Promise<void> {
+  async loadDirtyCommunications(
+    page: number,
+    farmerCpf?: string,
+  ): Promise<void> {
     this.dataLoading = true;
 
     this.communicationsService.findAll(
-      {page, farmerCpf, communicationIsDirty: false}
+      {page, farmerCpf, communicationIsDirty: true}
     ).toPromise()
       .then(response => {
-        this.communications = response.data;
+        this.dirtyCommunications = response.data;
         this.pagination = {...response};
       })
       .catch(error => {
@@ -59,12 +62,12 @@ export class CommunicationsComponent {
   }
 
   loadPreviousPage(): void {
-    this.loadCommunications(this.pagination!.previous_page!);
+    this.loadDirtyCommunications(this.pagination!.previous_page!);
     this.current_page--;
   }
 
   loadNextPage(): void {
-    this.loadCommunications(this.pagination!.next_page!);
+    this.loadDirtyCommunications(this.pagination!.next_page!);
     this.current_page++;
   }
 
@@ -80,33 +83,5 @@ export class CommunicationsComponent {
         horizontalPosition: 'right'
       }
     );
-  }
-
-  async handleDelete(id: string | number) {
-    this.dataLoading = true;
-
-    await this.communicationsService.delete(id).toPromise()
-      .then(() => {
-        this.pushSnackBar(
-          true,
-          'Comunicação de perda deletada com sucesso!'
-        );
-
-        this.communications = this.communications.filter(
-          farmer => farmer.id != id
-        );
-      })
-      .catch(error => {
-        this.pushSnackBar(
-          false,
-          'Comunicação de perda não pode ser deletada. Remova primeiro os registros que referenciam ela!'
-        );
-      })
-      .finally(() => {
-        this.dataLoading = false;
-
-        this.loadCommunications(this.current_page);
-      })
-    ;
   }
 }
