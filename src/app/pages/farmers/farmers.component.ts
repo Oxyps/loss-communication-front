@@ -12,7 +12,16 @@ import { FarmersService } from 'src/app/services/farmers.service';
 export class FarmersComponent implements OnInit {
   title = 'Agricultores';
   dataLoading: boolean = false;
+
   farmers: FarmerModel[] = [];
+
+  pagination?: {
+    previous_page: number | null,
+    next_page: number | null,
+    page_size: number,
+    data_length: number,
+  };
+  current_page = 1;
 
   constructor(
     private farmersService: FarmersService,
@@ -20,15 +29,16 @@ export class FarmersComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadFarmers();
+    this.loadFarmers(this.current_page);
   }
 
-  async loadFarmers(): Promise<void> {
+  async loadFarmers(page: number): Promise<void> {
     this.dataLoading = true;
 
-    this.farmersService.findAll().toPromise()
+    this.farmersService.findAll( {page} ).toPromise()
       .then(response => {
-        this.farmers = response;
+        this.farmers = response.data;
+        this.pagination = {...response};
       })
       .catch(error => {
         // console.log(error);
@@ -37,6 +47,20 @@ export class FarmersComponent implements OnInit {
         this.dataLoading = false;
       })
     ;
+  }
+
+  getAllPages(): number {
+    return Math.ceil(this.pagination!.data_length / this.pagination!.page_size);
+  }
+
+  loadPreviousPage(): void {
+    this.loadFarmers(this.pagination!.previous_page!);
+    this.current_page--;
+  }
+
+  loadNextPage(): void {
+    this.loadFarmers(this.pagination!.next_page!);
+    this.current_page++;
   }
 
   pushSnackBar(success: boolean, message: string): void {

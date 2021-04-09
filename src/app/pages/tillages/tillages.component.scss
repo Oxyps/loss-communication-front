@@ -23,6 +23,14 @@ table {
   }
 }
 
+#pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p { margin: 0 }
+}
+
 ::ng-deep .success-snackbar {
   background-color: limegreen;
   color: white;

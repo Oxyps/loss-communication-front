@@ -1,9 +1,8 @@
 export interface ResponseType<T> {
-  data: T[];
-
-  current_page: number;
   previous_page: number;
   next_page: number;
+  page_size: number;
+  data_length: number;
 
-  total: number;
+  data: T[];
 }

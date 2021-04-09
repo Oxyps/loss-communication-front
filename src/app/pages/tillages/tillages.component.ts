@@ -11,7 +11,16 @@ import { TillagesService } from 'src/app/services/tillages.service';
 export class TillagesComponent implements OnInit {
   title = 'Lavouras';
   dataLoading: boolean = false;
+
   tillages: TillageModel[] = [];
+
+  pagination?: {
+    previous_page: number | null,
+    next_page: number | null,
+    page_size: number,
+    data_length: number,
+  };
+  current_page = 1;
 
   constructor(
     private tillageService: TillagesService,
@@ -19,15 +28,16 @@ export class TillagesComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.loadTillages();
+    this.loadTillages(this.current_page);
   }
 
-  async loadTillages(): Promise<void> {
+  async loadTillages(page: number): Promise<void> {
     this.dataLoading = true;
 
-    this.tillageService.findAll().toPromise()
+    this.tillageService.findAll( {page} ).toPromise()
       .then(response => {
-        this.tillages = response;
+        this.tillages = response.data;
+        this.pagination = {...response};
       })
       .catch(error => {
         // console.log(error);
@@ -36,6 +46,20 @@ export class TillagesComponent implements OnInit {
         this.dataLoading = false;
       })
     ;
+  }
+
+  getAllPages(): number {
+    return Math.ceil(this.pagination!.data_length / this.pagination!.page_size);
+  }
+
+  loadPreviousPage(): void {
+    this.loadTillages(this.pagination!.previous_page!);
+    this.current_page--;
+  }
+
+  loadNextPage(): void {
+    this.loadTillages(this.pagination!.next_page!);
+    this.current_page++;
   }
 
   pushSnackBar(success: boolean, message: string): void {

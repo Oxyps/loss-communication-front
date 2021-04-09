@@ -20,3 +20,11 @@ table {
     margin: 0 5px;
   }
 }
+
+#pagination {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  p { margin: 0 }
+}

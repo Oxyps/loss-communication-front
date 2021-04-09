@@ -3,6 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
 import { BaseModel } from '../models/base.model';
+import { ResponseType } from './interfaces/response-type';
 import { RequestQueryType } from './interfaces/resquest-query-type';
 
 @Injectable({
@@ -14,14 +15,17 @@ export class BaseService<T extends BaseModel> {
     @Inject('url') protected url: string
   ) {}
 
-  findAll(query?: RequestQueryType<T>): Observable<T[]> {
+  findAll(query?: RequestQueryType<T>): Observable<ResponseType<T>> {
     let params = new HttpParams();
 
     if (query?.search) {
       params = params.append('search', query.search);
     }
+    if (query?.page) {
+      params = params.append('page', query.page.toString());
+    }
 
-    return this.http.get<T[]>(
+    return this.http.get<ResponseType<T>>(
       `${this.url}/`,
       { params }
     );

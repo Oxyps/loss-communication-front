@@ -18,7 +18,7 @@ button {
 
 :host {
   .mat-list-item {
-    background-color: #ffffff;
+    background-color: transparent;
 
     &:hover {
       background-color: mat-color($loss-communication-front-primary, 200);
